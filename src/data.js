@@ -1,5 +1,5 @@
 export const contactsData =[{
-    id: 1,
+    id: "1",
     firstName: "Lisabeth",
     lastName: "Treslove",
     emailAddress: "ltreslove0@dropbox.com",
@@ -7,7 +7,7 @@ export const contactsData =[{
     dateOfBirth: "14/07/1993",
     picture: "https://randomuser.me/api/portraitswomen/1.jpg "
   }, {
-    id: 2,
+    id: "2",
     firstName: "Johnathan",
     lastName: "Molnar",
     emailAddress: "jmolnar1@weather.com",
@@ -15,7 +15,7 @@ export const contactsData =[{
     dateOfBirth: "07/03/1986",
     picture: "https://randomuser.me/api/portraitswomen/2.jpg "
   }, {
-    id: 3,
+    id: "3",
     firstName: "Judie",
     lastName: "Mackrill",
     emailAddress: "jmackrill2@accuweather.com",
@@ -23,7 +23,7 @@ export const contactsData =[{
     dateOfBirth: "07/04/1980",
     picture: "https://randomuser.me/api/portraitswomen/3.jpg "
   }, {
-    id: 4,
+    id: "4",
     firstName: "Yvonne",
     lastName: "Wheater",
     emailAddress: "ywheater3@mac.com",
@@ -31,7 +31,7 @@ export const contactsData =[{
     dateOfBirth: "25/08/1995",
     picture: "https://randomuser.me/api/portraitswomen/4.jpg "
   }, {
-    id: 5,
+    id: "5",
     firstName: "Herculie",
     lastName: "Riolfi",
     emailAddress: "hriolfi4@amazon.co.jp",
@@ -39,7 +39,7 @@ export const contactsData =[{
     dateOfBirth: "31/08/1988",
     picture: "https://randomuser.me/api/portraitswomen/5.jpg "
   }, {
-    id: 6,
+    id: "6",
     firstName: "Nichols",
     lastName: "Sherwen",
     emailAddress: "nsherwen5@prweb.com",
@@ -47,7 +47,7 @@ export const contactsData =[{
     dateOfBirth: "10/07/1989",
     picture: "https://randomuser.me/api/portraitswomen/6.jpg "
   }, {
-    id: 7,
+    id: "7",
     firstName: "Waring",
     lastName: "Cowden",
     emailAddress: "wcowden6@ameblo.jp",
@@ -55,7 +55,7 @@ export const contactsData =[{
     dateOfBirth  : "01/01/1985",
     picture: "https://randomuser.me/api/portraitswomen/7.jpg "
   }, {
-    id: 8,
+    id: "8",
     firstName:"Virge",
     lastName  :"Routledge",
     emailAddress  : "vroutledge7@ucoz.ru",
@@ -63,7 +63,7 @@ export const contactsData =[{
     dateOfBirth : "18/10/1981",
     picture   : "https://randomuser.me/api/portraitswomen/8.jpg "
   }, {
-    id: 9,
+    id: "9",
     firstName: "Kara-lynn",
     lastName: "Palliser",
     emailAddress  : "kpalliser8@upenn.edu",
@@ -71,7 +71,7 @@ export const contactsData =[{
     dateOfBirth  : "18/03/1995",
     picture: "https://randomuser.me/api/portraitswomen/9.jpg "
   }, {
-    id: 10,
+    id: "10",
     firstName: "Julianne",
     lastName: "Emptage",
     emailAddress   : "jemptage9@ted.com",

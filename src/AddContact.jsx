@@ -3,6 +3,10 @@ import { Form, Row, Col, Button } from "react-bootstrap"
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from "react-router-dom";
 import {  toast } from 'react-toastify';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+import { contactsData } from "./data";
 
 
 
@@ -11,7 +15,8 @@ const defaultContact = {
     lastName: '',
     emailAddress: '',
     dateOfBirth: '',
-    gender: 'male',
+    gender: new Date(),
+    picture: '',
 
 
 }
@@ -26,6 +31,7 @@ const AddContact = ({addContact}) =>{
         lastName: '',
         emailAddress: '',
         dateOfBirth: '',
+        picture: '',
         
         
 
@@ -47,7 +53,7 @@ const AddContact = ({addContact}) =>{
 
     const handelSubmit = (evt) =>{
        evt.preventDefault()
-       const {firstName, lastName, emailAddress, dateOfBirth} = contact
+       const {picture,firstName, lastName, emailAddress, dateOfBirth} = contact
             //    checking error
             if(firstName === ''){
                setErrors(prevErrors =>({
@@ -78,6 +84,13 @@ const AddContact = ({addContact}) =>{
                    }))
              }
 
+             if(  picture === ''){
+                setErrors( (prevErrors) =>({
+                    ...prevErrors,
+                     picture: 'picture is Required'
+                   }))
+             }
+
              
 
             //  return true if every element true , otherwise false
@@ -95,8 +108,8 @@ const AddContact = ({addContact}) =>{
             }
     }
     
-     const {firstName, lastName, emailAddress, dateOfBirth, gender} = contact
-     const {firstName:errorFirstName, lastName: errorLastName, emailAddress: errorEmailAddress, dateOfBirth: errorDateOfBirth} = errors
+     const {picture,firstName, lastName, emailAddress, dateOfBirth, gender} = contact
+     const {picture: errorPicture,firstName:errorFirstName, lastName: errorLastName, emailAddress: errorEmailAddress, dateOfBirth: errorDateOfBirth } = errors
     return(
         <>
          <h1 className="mb-4 mt-4">Add Contact</h1>
@@ -175,18 +188,49 @@ const AddContact = ({addContact}) =>{
 
             <Form.Group as={Row} className="mb-3" >
                 <Col sm={3}>
-                <Form.Label column htmlFor="dateOfBirth">Date of Birth</Form.Label>     
+                <Form.Label column htmlFor="picture">Picture</Form.Label>     
                 </Col>
                  
                  <Col sm={9}>
                  <Form.Control 
+                 type="url" 
+                 id="picture"
+                 name="picture"
+                 placeholder="Enter your Picture" 
+                 onChange={handelChange}
+                 value={picture}
+                 isInvalid={errorPicture}
+                   
+                 />
+
+            <Form.Control.Feedback type="invalid" className="d-block">
+                   {errorPicture}
+                 </Form.Control.Feedback>
+
+                
+                 </Col>
+                
+            </Form.Group> 
+
+            <Form.Group as={Row} className="mb-3" >
+                <Col sm={3}>
+                <Form.Label column htmlFor="dateOfBirth">Date of Birth</Form.Label>     
+                </Col>
+                 
+                 <Col sm={9}>
+                 <DatePicker 
                  type="date" 
+                 selected={dateOfBirth}
                  id="dateOfBirth"
                  name="dateOfBirth"
                 
-                 onChange={handelChange}
+                 onChange={(date) => setContact({
+                     ...contact,
+                     dateOfBirth:date,
+                 })}
                  value={dateOfBirth}
                  isInvalid={errorDateOfBirth}
+                
                    
                  />
 

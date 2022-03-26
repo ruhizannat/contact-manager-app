@@ -1,16 +1,18 @@
 import { Card, Button, Modal } from "react-bootstrap"
 import style from './Contact.module.css'
-import { FaRegTrashAlt, FaRegEdit } from "react-icons/fa";
+import { FaRegTrashAlt, FaRegEdit, FaEye } from "react-icons/fa";
+
 import { useState } from "react";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import { format } from 'date-fns'
 
 
 
 
 
 const Contact = ({contact, deleteContact})=>{
-    const {id, firstName, lastName, emailAddress, gender, dateOfBirth} = contact
+    const {id, firstName, lastName, emailAddress, gender, dateOfBirth, picture} = contact
   
     const navigate = useNavigate()
     const [show, setShow] = useState(false)
@@ -42,7 +44,7 @@ const Contact = ({contact, deleteContact})=>{
          {modal}
 
           <Card className={`mb-3 mt-3 ${style.contact}`}>
-
+          <Card.Img variant="top" src={picture} />
             <Card.Body >
                 
                 <Card.Title>ID: {id}</Card.Title>
@@ -50,9 +52,10 @@ const Contact = ({contact, deleteContact})=>{
                     <span className="text-dark">Name: {firstName} {lastName}</span><br />
                     <span>Email: {emailAddress}</span><br />
                     <span>Gender: {gender}</span><br />
-                    <span>Date of Birth: {dateOfBirth}</span><br />
-                    <Button variant="info" size='md' type='edit'onClick={() => navigate(`/edit/${id}`)}><FaRegEdit /></Button>
+                    <span>Date of Birth: {format(new Date(dateOfBirth), 'dd/MM/yyyy')}</span><br />
+                    <Button variant="info" size='md' type='edit'onClick={() => navigate(`/edit/${id}`)}><FaRegEdit className="text-" /></Button>
                     <Button variant="danger ms-3" size='md' type='delete' onClick={handleShow}><FaRegTrashAlt /></Button>
+                    <Button variant="warning ms-3" size='md' type="view" onClick={() =>navigate(`/details/${id}`)}><FaEye /></Button>
                 </Card.Text>
                 
             </Card.Body>

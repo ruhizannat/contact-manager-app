@@ -8,7 +8,7 @@ import Navigation from "./Navigation"
 
 import About from './About';
 import Home from './Home';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { contactsData } from './data';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,10 +18,12 @@ import {
   Route,
 } from "react-router-dom";
 import NotFound from './NotFound';
+import ContactDetails from './ContactDetails';
 
 
 
 const App = () =>{
+  
   const [contacts, setContacts] =useState(contactsData)
   const addContact = (contact) =>{
      setContacts([...contacts, contact])
@@ -29,6 +31,21 @@ const App = () =>{
   const deleteContact = (id) =>{
     const contactAfterDelete =  contacts.filter(contact => contact.id !== id)
     setContacts(contactAfterDelete)
+  }
+
+  const updateContact = (contactToUpdate) =>{
+   const contactAfterUpdate = contacts.map(contact =>{
+      if(contact.id === contactToUpdate.id){
+         return{
+           id: contact.id,
+           ...contactToUpdate
+         }
+      }else{
+        return contact
+      }
+    })
+    console.log(contactAfterUpdate)
+    setContacts(contactAfterUpdate)
   }
     return(
        
@@ -51,7 +68,8 @@ const App = () =>{
               <Route path='/' index element={ <Home />} />
               <Route path='/about' element={  <About />} />
               <Route path='/add' element={ <AddContact addContact={addContact} />} />
-              <Route path='/edit/:id' element={<EditContact contacts={contacts} />} />
+              <Route path='/edit/:id' element={<EditContact contacts={contacts} updateContact={updateContact} />} />
+              <Route path='/details/:id' element={<ContactDetails contacts={contacts}/>} />
               <Route path='/contacts' element={ <Contacts contacts={contacts} deleteContact={deleteContact} />
           } />
 

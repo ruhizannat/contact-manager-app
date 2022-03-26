@@ -3,20 +3,23 @@ import { Form, Row, Col, Button } from "react-bootstrap"
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useParams } from "react-router-dom";
 import {  toast } from 'react-toastify';
+import DatePicker from "react-datepicker";
 
+import "react-datepicker/dist/react-datepicker.css";
 
 
 const defaultContact = {
     firstName: '',
     lastName: '',
     emailAddress: '',
-    dateOfBirth: '',
-    gender: 'male',
+    dateOfBirth: new Date(),
+    picture: '',
+    gender: '',
 
 
 }
 
-const EditContact = ({addContact, contacts}) =>{
+const EditContact = ({addContact, contacts, updateContact}) =>{
 
     const [contact, setContact] = useState(defaultContact)
     const navigate = useNavigate()
@@ -25,6 +28,10 @@ const EditContact = ({addContact, contacts}) =>{
 
    const contactToEdit = () =>{
      const foundContact =  contacts.find(contact => contact.id === id)
+     if(!foundContact){
+         toast.error('contacts is not found to be updated')
+         return navigate('/contacts')
+     }
      console.log(foundContact)
      setContact(foundContact)
    }
@@ -39,7 +46,9 @@ const EditContact = ({addContact, contacts}) =>{
         lastName: '',
         emailAddress: '',
         dateOfBirth: '',
+        picture:'',
         
+       
         
 
     }) 
@@ -60,7 +69,7 @@ const EditContact = ({addContact, contacts}) =>{
 
     const handelSubmit = (evt) =>{
        evt.preventDefault()
-       const {firstName, lastName, emailAddress, dateOfBirth} = contact
+       const {picture, firstName, lastName, emailAddress, dateOfBirth} = contact
             //    checking error
             if(firstName === ''){
                setErrors(prevErrors =>({
@@ -91,25 +100,32 @@ const EditContact = ({addContact, contacts}) =>{
                    }))
              }
 
+             if(  picture === ''){
+                setErrors( (prevErrors) =>({
+                    ...prevErrors,
+                     picture: 'picture is Required'
+                   }))
+             }
+
              
 
             //  return true if every element true , otherwise false
             const isValid = Object.values(contact).every(elm => elm)
             if(isValid){
                 // form submission
-                addContact({
+                updateContact({
                     id: uuidv4(),
                     ...contact
                 })
-                toast.success('Contact is added successfully')
+                toast.success('Contact is Updated successfully')
                 navigate('/contacts')
                 // reset after submitting
                 // setContact(defaultContact)
             }
     }
     
-     const {firstName, lastName, emailAddress, dateOfBirth, gender} = contact
-     const {firstName:errorFirstName, lastName: errorLastName, emailAddress: errorEmailAddress, dateOfBirth: errorDateOfBirth} = errors
+     const {picture,firstName, lastName, emailAddress, dateOfBirth, gender} = contact
+     const {picture: errorPicture,firstName:errorFirstName, lastName: errorLastName, emailAddress: errorEmailAddress, dateOfBirth: errorDateOfBirth} = errors
     return(
         <>
          <h1 className="mb-4 mt-4">Edit Contact</h1>
@@ -188,18 +204,51 @@ const EditContact = ({addContact, contacts}) =>{
 
             <Form.Group as={Row} className="mb-3" >
                 <Col sm={3}>
-                <Form.Label column htmlFor="dateOfBirth">Date of Birth</Form.Label>     
+                <Form.Label column htmlFor="picture">Picture</Form.Label>     
                 </Col>
                  
                  <Col sm={9}>
                  <Form.Control 
+                 type="url" 
+                 id="picture"
+                 name="picture"
+                 placeholder="Enter your Picture" 
+                 onChange={handelChange}
+                 value={picture}
+                 isInvalid={errorPicture}
+                   
+                 />
+
+            <Form.Control.Feedback type="invalid" className="d-block">
+                   {errorPicture}
+                 </Form.Control.Feedback>
+
+                
+                 </Col>
+                
+            </Form.Group>
+
+            <Form.Group as={Row} className="mb-3" >
+                <Col sm={3}>
+                <Form.Label column htmlFor="dateOfBirth">Date of Birth</Form.Label>     
+                </Col>
+                 
+                 <Col sm={9}>
+                 <DatePicker 
                  type="date" 
+                 selected={dateOfBirth}
                  id="dateOfBirth"
                  name="dateOfBirth"
                 
-                 onChange={handelChange}
+                 onChange={(date) => setContact({
+                     ...contact,
+                     dateOfBirth:date,
+                 })}
+                
+              
                  value={dateOfBirth}
                  isInvalid={errorDateOfBirth}
+                 selectsStart
                    
                  />
 
