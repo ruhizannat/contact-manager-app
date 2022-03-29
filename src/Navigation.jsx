@@ -6,7 +6,7 @@ const Navigation = () =>{
         <>
         <Navbar bg="light" expand="lg" className='mb-4'>
             <Container className='d-flex flex-row'>
-                <Navbar.Brand as={Link} to='/' className='contact-brand'>Contact Manager</Navbar.Brand>
+                <Navbar.Brand as={Link} to='/' className='contact-brand'>Contact <span className='text-warning'>Manager</span></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className=" ms-auto">

@@ -3,7 +3,7 @@ import style from './Contact.module.css'
 import { useEffect, useState } from "react"
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
-import { format} from 'date-fns'
+import { format, parseISO} from 'date-fns'
 
 
 
@@ -11,7 +11,7 @@ const defaultContact = {
     firstName: '',
     lastName: '',
     emailAddress: '',
-    dateOfBirth:'',
+    dateOfBirth:new Date(),
     gender: 'male',
     picture:'',
 
@@ -19,7 +19,7 @@ const defaultContact = {
 }
 const ContactDetails = ({contacts}) =>{
 
-    const [contact, setContact] = useState(defaultContact)
+    const [contact, setContact] = useState({})
     const navigate = useNavigate()
    const {id} = useParams()
    console.log(id)
@@ -30,26 +30,28 @@ const ContactDetails = ({contacts}) =>{
      console.log(foundContact)
      setContact(foundContact)
    }
-    
+
     useEffect(() =>{
         findContact()
     }, [id])
  
-    const { firstName, lastName, emailAddress, gender, dateOfBirth, picture} = contact
+    const { firstName='', lastName= '', emailAddress='', gender='', dateOfBirth='', picture=''} = contact
+    
     return(
         <>
            <h1>Contact Details Information</h1>          
 
           <Card className={`mb-3 mt-3 ${style.contact}`}>
-          <Card.Img variant="top" src={picture} />
+          <Card.Img variant="top" src={contact?.picture} />
             <Card.Body >
                 
-            <Card.Title>ID: {id}</Card.Title>
+            <Card.Title>ID: {contact?.id}</Card.Title>
                 <Card.Text>
                     <span className="text-dark">Name: {firstName} {lastName}</span><br />
                     <span>Email: {emailAddress}</span><br />
                     <span>Gender: {gender}</span><br />
-                    <span>Date of Birth: {format(new Date(dateOfBirth),'dd/MM/yyyy')}</span><br />
+                    {/* <span>Date of Birth: {format(new Date(contact?.dateOfBirth), 'dd/MM/yyyy')}</span><br /> */}
+                    {dateOfBirth &&  <span>Date of Birth: {format(new Date(dateOfBirth), 'dd/MM/yyyy')}</span>}
                    
                 </Card.Text>
                 <div className="d-grid gap-2">

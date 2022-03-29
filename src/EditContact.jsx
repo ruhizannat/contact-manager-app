@@ -244,7 +244,8 @@ const EditContact = ({addContact, contacts, updateContact}) =>{
                      ...contact,
                      dateOfBirth:date,
                  })}
-                
+               
+                 
               
                  value={dateOfBirth}
                  isInvalid={errorDateOfBirth}
@@ -303,5 +304,6 @@ const EditContact = ({addContact, contacts, updateContact}) =>{
         </>
     )
 }
+
 
 export default EditContact

@@ -14,8 +14,8 @@ const defaultContact = {
     firstName: '',
     lastName: '',
     emailAddress: '',
-    dateOfBirth: '',
-    gender: new Date(),
+    dateOfBirth: new Date(),
+    gender: '',
     picture: '',
 
 
@@ -186,7 +186,7 @@ const AddContact = ({addContact}) =>{
                 
             </Form.Group>
 
-            <Form.Group as={Row} className="mb-3" >
+            <Form.Group as={Row} className="mb-3 " >
                 <Col sm={3}>
                 <Form.Label column htmlFor="picture">Picture</Form.Label>     
                 </Col>
@@ -200,6 +200,7 @@ const AddContact = ({addContact}) =>{
                  onChange={handelChange}
                  value={picture}
                  isInvalid={errorPicture}
+                
                    
                  />
 
@@ -223,11 +224,13 @@ const AddContact = ({addContact}) =>{
                  selected={dateOfBirth}
                  id="dateOfBirth"
                  name="dateOfBirth"
-                
+                 
                  onChange={(date) => setContact({
                      ...contact,
                      dateOfBirth:date,
                  })}
+               
+               
                  value={dateOfBirth}
                  isInvalid={errorDateOfBirth}
                 
