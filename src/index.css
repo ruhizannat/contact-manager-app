@@ -24,3 +24,6 @@ form label{
    font-size: 20px;
    font-weight: 300;
 }
+.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
+    color: #FFCA2C !important;
+}
