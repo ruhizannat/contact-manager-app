@@ -6,6 +6,13 @@ import { toast } from 'react-toastify';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import TextInput from './contactFormInputs/TextInput';
+import EmailInput from './contactFormInputs/EmailInput';
+import DateInput from './contactFormInputs/DateInput';
+import CheckInput from './contactFormInputs/CheckInput';
+import ImagesInput from './contactFormInputs/imagesInput';
+import { genderValue } from './contactFormInputs/gendeValue';
+import CommonValueCheckedInput from './contactFormInputs/CommonValueCheckedInput';
 
 const defaultContact = {
 	firstName: '',
@@ -147,162 +154,73 @@ const ContactForm = ({ addContact, updateContact, contact: contactToEdit }) => {
 				{contactToEdit ? 'Edit Contact' : 'Add Contact'}
 			</h1>
 			<Form onSubmit={handelSubmit}>
-				<Form.Group as={Row} className='mb-3'>
-					<Col sm={3}>
-						<Form.Label column htmlFor='firstName'>
-							First Name
-						</Form.Label>
-					</Col>
-					<Col sm={9}>
-						<Form.Control
-							type='text'
-							name='firstName'
-							id='firstName'
-							onChange={handelChange}
-							value={firstName}
-							placeholder='Enter your First Name'
-							isInvalid={errorFirstName}
-						/>
+				<TextInput
+					label='First Name'
+					type='text'
+					name='firstName'
+					onChange={handelChange}
+					value={firstName}
+					placeholder='Enter your First Name'
+					error={errorFirstName}
+				/>
 
-						<Form.Control.Feedback type='invalid' className='d-block'>
-							{errorFirstName}
-						</Form.Control.Feedback>
-					</Col>
-				</Form.Group>
+				<TextInput
+					label='Last Name'
+					type='text'
+					name='lastName'
+					onChange={handelChange}
+					value={lastName}
+					placeholder='Enter your Last Name'
+					error={errorLastName}
+				/>
 
-				<Form.Group as={Row} className='mb-3'>
-					<Col sm={3}>
-						<Form.Label column htmlFor='lastName'>
-							Last Name
-						</Form.Label>
-					</Col>
-					<Col sm={9}>
-						<Form.Control
-							type='text'
-							name='lastName'
-							id='lastName'
-							onChange={handelChange}
-							value={lastName}
-							placeholder='Enter your last Name'
-							isInvalid={errorLastName}
-						/>
+				<EmailInput
+					label='	Email address'
+					type='email'
+					name='emailAddress'
+					onChange={handelChange}
+					value={emailAddress}
+					placeholder='Enter your email'
+					error={errorEmailAddress}
+				/>
 
-						<Form.Control.Feedback type='invalid' className='d-block'>
-							{errorLastName}
-						</Form.Control.Feedback>
-					</Col>
-				</Form.Group>
+				<ImagesInput
+					label='Picture'
+					type='url'
+					name='picture'
+					placeholder='Enter your Picture'
+					onChange={handelChange}
+					value={picture}
+					error={errorPicture}
+				/>
 
-				<Form.Group as={Row} className='mb-3'>
-					<Col sm={3}>
-						<Form.Label column htmlFor='email'>
-							Email address
-						</Form.Label>
-					</Col>
+				<DateInput
+					label='Date of Birth'
+					type='date'
+					selected={dateOfBirth}
+					name='dateOfBirth'
+					onChange={(date) =>
+						setContact({
+							...contact,
+							dateOfBirth: date,
+						})
+					}
+					value={dateOfBirth}
+					error={errorDateOfBirth}
+					selectsStart
+				/>
 
-					<Col sm={9}>
-						<Form.Control
-							type='email'
-							id='email'
-							name='emailAddress'
-							placeholder='Enter your email'
-							onChange={handelChange}
-							value={emailAddress}
-							isInvalid={errorEmailAddress}
-						/>
-
-						<Form.Control.Feedback type='invalid' className='d-block'>
-							{errorEmailAddress}
-						</Form.Control.Feedback>
-					</Col>
-				</Form.Group>
-
-				<Form.Group as={Row} className='mb-3'>
-					<Col sm={3}>
-						<Form.Label column htmlFor='picture'>
-							Picture
-						</Form.Label>
-					</Col>
-
-					<Col sm={9}>
-						<Form.Control
-							type='url'
-							id='picture'
-							name='picture'
-							placeholder='Enter your Picture'
-							onChange={handelChange}
-							value={picture}
-							isInvalid={errorPicture}
-						/>
-
-						<Form.Control.Feedback type='invalid' className='d-block'>
-							{errorPicture}
-						</Form.Control.Feedback>
-					</Col>
-				</Form.Group>
-
-				<Form.Group as={Row} className='mb-3'>
-					<Col sm={3}>
-						<Form.Label column htmlFor='dateOfBirth'>
-							Date of Birth
-						</Form.Label>
-					</Col>
-
-					<Col sm={9}>
-						<DatePicker
-							type='date'
-							selected={dateOfBirth}
-							id='dateOfBirth'
-							name='dateOfBirth'
-							onChange={(date) =>
-								setContact({
-									...contact,
-									dateOfBirth: date,
-								})
-							}
-							value={dateOfBirth}
-							isInvalid={errorDateOfBirth}
-							selectsStart
-						/>
-
-						<Form.Control.Feedback type='invalid' className='d-block'>
-							{errorDateOfBirth}
-						</Form.Control.Feedback>
-					</Col>
-				</Form.Group>
-
-				<Form.Group as={Row} className='mb-3'>
-					<Col sm={3}>
-						<Form.Label column htmlFor='gender'>
-							Gender
-						</Form.Label>
-					</Col>
-
-					<Col sm='auto'>
-						<Form.Check
-							type='radio'
-							name='gender'
-							onChange={handelChange}
-							value='male'
-							label='Male'
-							checked={gender === 'male'}
-						/>
-					</Col>
-					<Col sm='auto'>
-						<Form.Check
-							type='radio'
-							name='gender'
-							onChange={handelChange}
-							value='female'
-							label='Female'
-							checked={gender === 'female'}
-						/>
-					</Col>
-				</Form.Group>
+               <CommonValueCheckedInput 
+			      label='Gender'
+				  onChange={handelChange}
+				  valueToIterate={genderValue}
+			   />
+			
 				<div className='mt-4'>
 					<Button variant='primary' size='md' type='submit'>
 						{contactToEdit ? 'Update Contact' : 'Submit Contact'}
 					</Button>
+					{/* <Button variant="secondary" className="ms-2" size='md'onClick={() =>navigate('/contacts')}>Back</Button> */}
 				</div>
 			</Form>
 		</>

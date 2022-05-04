@@ -2,6 +2,7 @@ import ContactForm from './ContactForm';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 const EditContact = ({ contacts, updateContact }) => {
 	const [contact, setContact] = useState(null);
@@ -29,6 +30,7 @@ const EditContact = ({ contacts, updateContact }) => {
 	return (
 		<>
 			<ContactForm updateContact={handelUpdateContact} contact={contact} />
+			{/* <Button variant="secondary" className="ms-2" size='md'onClick={() =>navigate('/contacts')}>Back</Button> */}
 		</>
 	);
 };
