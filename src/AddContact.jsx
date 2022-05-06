@@ -1,6 +1,9 @@
 import ContactForm from './ContactForm';
+import { ContactContext } from './context/ContactContext';
+import { useContext } from 'react';
 
-const AddContact = ({ addContact }) => {
+const AddContact = () => {
+	const { addContact } = useContext(ContactContext);
 	const handelContact = (contact) => {
 		console.log(contact);
 		addContact(contact);

@@ -11,7 +11,7 @@ import EmailInput from './contactFormInputs/EmailInput';
 import DateInput from './contactFormInputs/DateInput';
 import CheckInput from './contactFormInputs/CheckInput';
 import ImagesInput from './contactFormInputs/imagesInput';
-import { genderValue } from './contactFormInputs/gendeValue';
+
 import CommonValueCheckedInput from './contactFormInputs/CommonValueCheckedInput';
 
 const defaultContact = {
@@ -19,7 +19,7 @@ const defaultContact = {
 	lastName: '',
 	emailAddress: '',
 	dateOfBirth: new Date(),
-	gender: '',
+	gender: 'female',
 	picture: '',
 };
 const ContactForm = ({ addContact, updateContact, contact: contactToEdit }) => {
@@ -28,7 +28,7 @@ const ContactForm = ({ addContact, updateContact, contact: contactToEdit }) => {
 		lastName: '',
 		emailAddress: '',
 		dateOfBirth: new Date(),
-		gender: '',
+		gender: 'female',
 		picture: '',
 	});
 
@@ -125,7 +125,7 @@ const ContactForm = ({ addContact, updateContact, contact: contactToEdit }) => {
 			return navigate('/contacts');
 		}
 
-		if (isValid) {
+		if (isValid && !contact.id) {
 			// form submission
 			addContact({
 				id: uuidv4(),
@@ -148,6 +148,21 @@ const ContactForm = ({ addContact, updateContact, contact: contactToEdit }) => {
 		emailAddress: errorEmailAddress,
 		dateOfBirth: errorDateOfBirth,
 	} = errors;
+
+	const genderValue = [
+		{
+			name: 'gender',
+			type: 'radio',
+			value: 'male',
+			label: 'Male',
+		},
+		{
+			name: 'gender',
+			type: 'radio',
+			value: 'female',
+			label: 'feMale',
+		},
+	];
 	return (
 		<>
 			<h1 className='mb-4 mt-4'>
@@ -210,12 +225,13 @@ const ContactForm = ({ addContact, updateContact, contact: contactToEdit }) => {
 					selectsStart
 				/>
 
-               <CommonValueCheckedInput 
-			      label='Gender'
-				  onChange={handelChange}
-				  valueToIterate={genderValue}
-			   />
-			
+				<CommonValueCheckedInput
+					label='Gender'
+					onChange={handelChange}
+					valueToIterate={genderValue}
+					valueToCheck={gender}
+				/>
+
 				<div className='mt-4'>
 					<Button variant='primary' size='md' type='submit'>
 						{contactToEdit ? 'Update Contact' : 'Submit Contact'}

@@ -1,22 +1,24 @@
 import ContactForm from './ContactForm';
 import { toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import { ContactContext } from './context/ContactContext';
 
-const EditContact = ({ contacts, updateContact }) => {
+const EditContact = () => {
 	const [contact, setContact] = useState(null);
+	const { contacts, updateContact } = useContext(ContactContext);
 	const navigate = useNavigate();
 	const { id } = useParams();
-	console.log(id);
 
 	const contactToEdit = () => {
 		const foundContact = contacts.find((contact) => contact.id === id);
+		console.log(foundContact);
 		if (!foundContact) {
 			toast.error('contacts is not found to be updated');
 			return navigate('/contacts');
 		}
-		console.log(foundContact);
+
 		setContact(foundContact);
 	};
 
@@ -24,9 +26,8 @@ const EditContact = ({ contacts, updateContact }) => {
 		contactToEdit();
 	}, [id]);
 	const handelUpdateContact = (contact) => {
-        console.log(contact)
-        updateContact(contact)
-    };
+		updateContact(contact);
+	};
 	return (
 		<>
 			<ContactForm updateContact={handelUpdateContact} contact={contact} />
