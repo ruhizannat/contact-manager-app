@@ -2,28 +2,41 @@
 /* font-family: 'Lobster', cursive;
 font-family: 'Recursive', sans-serif; */
 
-body{
-    font-family: 'Recursive', sans-serif !important;  
-    overflow-x: hidden;
-    background-color: #eee8E4 !important;
+body {
+	font-family: 'Recursive', sans-serif !important;
+	overflow-x: hidden;
+	background-color: #eee8e4 !important;
 }
-form label{
-    font-style: italic;
-    font-weight: lighter;
-}
-
-
-.contact-brand{
-    font-family: 'Lobster', cursive !important;
-    font-size: 1.5rem !important;
-
+form label {
+	font-style: italic;
+	font-weight: lighter;
 }
 
-.p{
-    text-align: center;
-   font-size: 20px;
-   font-weight: 300;
+.contact-brand {
+	font-family: 'Lobster', cursive !important;
+	font-size: 1.5rem !important;
 }
-.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
-    color: #FFCA2C !important;
+
+.p {
+	text-align: center;
+	font-size: 20px;
+	font-weight: 300;
+}
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .show > .nav-link {
+	color: #ffca2c !important;
+}
+
+.button {
+	color: #0c2c7e !important;
+}
+.relative {
+	position: relative !important;
+}
+
+.absolute {
+	position: absolute !important;
+	margin-top: -36px;
+	right: 14rem;
+	font-size: 22px;
 }

@@ -15,6 +15,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NotFound from './NotFound';
 import ContactDetails from './ContactDetails';
+import Register from './auth/Register';
+import Login from './auth/Login';
 
 const App = () => {
 	return (
@@ -38,6 +40,8 @@ const App = () => {
 								<Route path='/edit/:id' element={<EditContact />} />
 								<Route path='/details/:id' element={<ContactDetails />} />
 								<Route path='/contacts' element={<Contacts />} />
+								<Route path='/register' element={<Register />} />
+								<Route path='/login' element={<Login />} />
 
 								<Route path='*' element={<NotFound />} />
 							</Routes>

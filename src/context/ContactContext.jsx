@@ -50,4 +50,5 @@ export const ContactProvider = ({ children }) => {
 	return (
 		<ContactContext.Provider value={value}>{children}</ContactContext.Provider>
 	);
-};
+}
+
