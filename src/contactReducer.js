@@ -2,12 +2,15 @@ import {
 	ADD_CONTACT,
 	DELETE_CONTACT,
 	DETAILS_CONTACT,
+	GET_CONTACTS,
 	UPDATE_CONTACT,
 } from './actions';
 
 export const contactReducer = (state, action) => {
 	const { type, payload } = action;
 	switch (type) {
+		case GET_CONTACTS:
+			return [...state, ...payload];
 		case ADD_CONTACT:
 			return [...state, payload];
 		case DELETE_CONTACT:
@@ -29,11 +32,6 @@ export const contactReducer = (state, action) => {
 			});
 
 			return [...contactAfterUpdate];
-
-		// case DETAILS_CONTACT:
-		// 	const foundContact = state.find((contact) => contact.id === payload);
-
-		// 	return [...foundContact];
 
 		default:
 			return state;

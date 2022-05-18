@@ -3,11 +3,19 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
+import { toast } from 'react-toastify';
 const schema = yup
 	.object({
 		firstName: yup.string().required('First Name is required'),
 		lastName: yup.string().required('Last Name is required'),
+		username: yup
+			.string()
+			.required('username is Required')
+			.min(4, 'username must be 4 or more in length'),
 		email: yup
 			.string()
 			.email('Must be valid')
@@ -16,8 +24,13 @@ const schema = yup
 			.required('Email is required'),
 		password: yup
 			.string()
-			.min(8, 'password must be 8 character long')
-			.required('Password is required'),
+
+			.required('password is required')
+			.min(
+				8,
+				'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character'
+			),
+
 		confirmPassword: yup
 			.string()
 			.required('confirm Password is Required')
@@ -26,6 +39,8 @@ const schema = yup
 	.required();
 
 const Register = () => {
+	const navigate = useNavigate();
+	const { saveAuthInfo } = useContext(AuthContext);
 	const {
 		register,
 		handleSubmit,
@@ -35,8 +50,28 @@ const Register = () => {
 		resolver: yupResolver(schema),
 	});
 
-	const submit = (data) => {
-		console.log(data);
+	const onSubmit = async (data) => {
+		const { firstName, lastName, username, email, password } = data;
+		try {
+			const res = await axios.post(
+				// api request to the server
+				'http://localhost:1337/api/auth/local/register',
+				{
+					firstName,
+					lastName,
+					username,
+					email,
+					password,
+				}
+			);
+			saveAuthInfo(res.data);
+			toast.success('Registration successful');
+			navigate('/contacts');
+		} catch (err) {
+			console.log(err);
+			toast.error(err.response.data.error.message);
+			console.log(err.response);
+		}
 	};
 
 	const [password, setPassword] = useState(false);
@@ -50,13 +85,13 @@ const Register = () => {
 	};
 	return (
 		<Row>
-			<h2 className='mb-4 mt-4 text-center '>register</h2>
+			<h2 className='mb-4 mt-4 text-center '>Register</h2>
 			<Col sm={{ span: 8, offset: 2 }}>
-				<Form onSubmit={handleSubmit(submit)}>
+				<Form onSubmit={handleSubmit(onSubmit)}>
 					<Form.Group as={Row} className='mb-3'>
 						<Col sm={3}>
 							<Form.Label column htmlFor='firstName'>
-								First Name
+								FirstName
 							</Form.Label>
 						</Col>
 						<Col sm={9}>
@@ -66,7 +101,6 @@ const Register = () => {
 								id='firstName'
 								placeholder=' first name'
 								isInvalid={errors.firstName}
-								defaultValue={'ishika'}
 								{...register('firstName')}
 							/>
 
@@ -79,7 +113,7 @@ const Register = () => {
 					<Form.Group as={Row} className='mb-3'>
 						<Col sm={3}>
 							<Form.Label column htmlFor='lastName'>
-								Last Name
+								LastName
 							</Form.Label>
 						</Col>
 						<Col sm={9}>
@@ -89,7 +123,6 @@ const Register = () => {
 								id='lastName'
 								placeholder=' last name'
 								isInvalid={errors.lastName}
-								defaultValue={'sopno'}
 								{...register('lastName')}
 							/>
 							<Form.Control.Feedback type='invalid' className='d-block'>
@@ -100,8 +133,30 @@ const Register = () => {
 
 					<Form.Group as={Row} className='mb-3'>
 						<Col sm={3}>
+							<Form.Label htmlFor='username' column>
+								username
+							</Form.Label>
+						</Col>
+
+						<Col sm={9}>
+							<Form.Control
+								type='text'
+								name='username'
+								id='username'
+								placeholder=' username'
+								isInvalid={errors.username}
+								{...register('username')}
+							/>
+							<Form.Control.Feedback type='inValid' className='d-block'>
+								{errors.username?.message}
+							</Form.Control.Feedback>
+						</Col>
+					</Form.Group>
+
+					<Form.Group as={Row} className='mb-3'>
+						<Col sm={3}>
 							<Form.Label column htmlFor='email'>
-								Email
+								email
 							</Form.Label>
 						</Col>
 						<Col sm={9}>
@@ -111,7 +166,6 @@ const Register = () => {
 								id='email'
 								placeholder=' email'
 								isInvalid={errors.email}
-								defaultValue={'ishikasopno90@gmail.com'}
 								{...register('email')}
 							/>
 
@@ -124,12 +178,12 @@ const Register = () => {
 					<Form.Group as={Row} className='mb-3'>
 						<Col sm={3}>
 							<Form.Label column htmlFor='password'>
-								Password
+								password
 							</Form.Label>
 						</Col>
 						<Col sm={9}>
 							<Form.Control
-								className='relative'
+								className='passwordControl'
 								type={password === false ? 'password' : 'text'}
 								name='password'
 								id='password'
@@ -140,7 +194,7 @@ const Register = () => {
 										/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
 								})}
 							/>
-							<div className='absolute '>
+							<div className='passwordIcon '>
 								{password === false ? (
 									<AiFillEyeInvisible onClick={handelPassword} />
 								) : (
@@ -157,12 +211,12 @@ const Register = () => {
 					<Form.Group as={Row} className='mb-3'>
 						<Col sm={3}>
 							<Form.Label column htmlFor='confirmPassword'>
-								Confirm Password
+								confirmPassword
 							</Form.Label>
 						</Col>
 						<Col sm={9}>
 							<Form.Control
-								className='relative'
+								className='passwordControl'
 								type={confirmPassword === false ? 'password' : 'text'}
 								name='confirmPassword'
 								id='confirmPassword'
@@ -170,7 +224,7 @@ const Register = () => {
 								isInvalid={errors.confirmPassword}
 								{...register('confirmPassword')}
 							/>
-							<div className='absolute '>
+							<div className='passwordIcon '>
 								{confirmPassword === false ? (
 									<AiFillEyeInvisible onClick={handelConfirmPassword} />
 								) : (
@@ -185,7 +239,7 @@ const Register = () => {
 					</Form.Group>
 					<div className='mt-4'>
 						<Button
-							className='button'
+							variant='warning'
 							disabled={isSubmitting}
 							type='submit'
 							size='md'

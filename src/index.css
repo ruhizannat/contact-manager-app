@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Recursive:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
 /* font-family: 'Lobster', cursive;
-font-family: 'Recursive', sans-serif; */
+font-family: 'Recursive', sans-serif;
+font-family: 'Roboto Condensed', sans-serif; */
+@font-face {
+	font-family: alternate;
+	src: url(fonts/AlternateGotNo1D.ttf);
+}
 
 body {
 	font-family: 'Recursive', sans-serif !important;
@@ -27,16 +33,45 @@ form label {
 	color: #ffca2c !important;
 }
 
-.button {
-	color: #0c2c7e !important;
-}
-.relative {
+.passwordControl {
 	position: relative !important;
 }
 
-.absolute {
+.passwordIcon {
 	position: absolute !important;
 	margin-top: -36px;
 	right: 14rem;
 	font-size: 22px;
+}
+.content {
+	display: grid;
+	place-items: center;
+}
+h2 {
+	font-family: alternate, 'Roboto Condensed', sans-serif;
+	text-transform: uppercase;
+	font-weight: 700 !important;
+	font-size: 40px !important;
+	line-height: 66px !important;
+	word-spacing: 0px;
+}
+.images {
+	border: 1px solid #fff;
+	width: 60px;
+	height: 60px !important;
+	margin-left: 1rem !important;
+	border-radius: 50%;
+}
+
+.form {
+	/* background: #e0e3eb !important; */
+	background: hsl(205, 100%, 96%);
+	max-width: 600px;
+
+	padding: 50px;
+	border-radius: 8px;
+}
+.form:hover {
+	outline: none;
+	box-shadow: 0px 0px 14px 0.3px #0e81ce96;
 }

@@ -1,0 +1,10 @@
+.passwordControl {
+	position: relative !important;
+}
+
+.passwordIcon {
+	position: absolute !important;
+	margin-top: -36px;
+	right: 25rem;
+	font-size: 22px;
+}
