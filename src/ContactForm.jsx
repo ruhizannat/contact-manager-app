@@ -10,7 +10,7 @@ import TextInput from './contactFormInputs/TextInput';
 import EmailInput from './contactFormInputs/EmailInput';
 import DateInput from './contactFormInputs/DateInput';
 import CheckInput from './contactFormInputs/CheckInput';
-import ImagesInput from './contactFormInputs/imagesInput';
+import ImagesInput from './contactFormInputs/ImagesInput';
 
 import CommonValueCheckedInput from './contactFormInputs/CommonValueCheckedInput';
 
