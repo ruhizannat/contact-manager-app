@@ -8,6 +8,7 @@ const ImagesInput = ({
 	onChange,
 	value,
 	error,
+	accept,
 }) => {
 	return (
 		<>
@@ -27,6 +28,7 @@ const ImagesInput = ({
 						onChange={onChange}
 						value={value}
 						isInvalid={error}
+						accept={accept}
 					/>
 
 					<Form.Control.Feedback type='invalid' className='d-block'>

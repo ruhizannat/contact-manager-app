@@ -1,4 +1,4 @@
-import { Card, Button, Modal } from 'react-bootstrap';
+import { Card, Button, Modal, Row, Col } from 'react-bootstrap';
 import style from './Contact.module.css';
 import { FaRegTrashAlt, FaRegEdit, FaEye } from 'react-icons/fa';
 
@@ -18,6 +18,8 @@ const Contact = ({ contact }) => {
 		dateOfBirth,
 		picture,
 	} = contact;
+
+	const formattedPictureUrl = `http://localhost:1337${picture?.data?.attributes?.formats?.medium?.url}`;
 
 	const { deleteContact } = useContext(ContactContext);
 
@@ -49,8 +51,15 @@ const Contact = ({ contact }) => {
 		<>
 			{modal}
 
-			<Card className={`mb-3 mt-3 ${style.contact}`}>
-				<Card.Img variant='top' src={picture} />
+			<Card className='cardContact mb-4 me-4 container-fluid d-flex justify-content-center'>
+				{formattedPictureUrl && (
+					<Card.Img
+						variant='top'
+						src={formattedPictureUrl}
+						className='cardImg'
+					/>
+				)}
+
 				<Card.Body>
 					<Card.Title>ID: {id}</Card.Title>
 					<Card.Text>

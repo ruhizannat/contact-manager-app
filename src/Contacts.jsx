@@ -5,9 +5,9 @@ import { ContactContext } from './context/ContactContext';
 
 const Contacts = () => {
 	const { contacts } = useContext(ContactContext);
-	console.log(contacts);
+
 	const [search, setSearch] = useState('');
-	console.log(search);
+
 	const filteredContacts = contacts.filter(
 		(contact) =>
 			contact.firstName.includes(search) || contact.lastName.includes(search)
@@ -15,7 +15,7 @@ const Contacts = () => {
 
 	return (
 		<>
-			<h1 className='mt-3 mb-5 text-center'>All Contacts</h1>
+			<h1 className='mt-1 mb-3 text-center'>All Contacts</h1>
 			<Form as={Row} className='d-flex mb-5'>
 				<Col sm={4}>
 					<FormControl
@@ -33,11 +33,11 @@ const Contacts = () => {
 			</Form>
 
 			<Row>
-				<Col sm={6}>
-					{filteredContacts.map((contact, i) => (
-						<Contact contact={contact} key={i} />
-					))}
-				</Col>
+				{filteredContacts.map((contact, i) => (
+					<Col sm={4} key={i}>
+						<Contact contact={contact} />
+					</Col>
+				))}
 			</Row>
 		</>
 	);

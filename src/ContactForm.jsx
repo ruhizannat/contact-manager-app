@@ -13,6 +13,7 @@ import CheckInput from './contactFormInputs/CheckInput';
 import ImagesInput from './contactFormInputs/ImagesInput';
 
 import CommonValueCheckedInput from './contactFormInputs/CommonValueCheckedInput';
+import axios from 'axios';
 
 const defaultContact = {
 	firstName: '',
@@ -55,6 +56,7 @@ const ContactForm = ({ addContact, updateContact, contact: contactToEdit }) => {
 		}
 	}, [contactToEdit]);
 	const navigate = useNavigate();
+	const [file, setFile] = useState(null);
 
 	const [errors, setErrors] = useState({
 		firstName: '',
@@ -73,10 +75,26 @@ const ContactForm = ({ addContact, updateContact, contact: contactToEdit }) => {
 			...errors,
 			[evt.target.name]: '',
 		});
+		setFile(evt.target.files[0]);
 	};
 
-	const handelSubmit = (evt) => {
+	const handelSubmit = async (evt) => {
 		evt.preventDefault();
+		const formData = new FormData();
+		formData.append('files.picture', file);
+		// send the request to server
+		try {
+			const upload_res = await axios({
+				method: 'POST',
+				url: 'http://localhost:1337/api/upload',
+				data: formData,
+			});
+			console.log(upload_res);
+		} catch (err) {
+			console.log(err);
+			console.log(err.response);
+		}
+
 		const { picture, firstName, lastName, emailAddress, dateOfBirth } = contact;
 		//    checking error
 		if (firstName === '') {
@@ -126,14 +144,24 @@ const ContactForm = ({ addContact, updateContact, contact: contactToEdit }) => {
 		}
 
 		if (isValid && !contact.id) {
-			// form submission
-			addContact({
-				id: uuidv4(),
-				...contact,
-			});
+			const data = {
+				firstName,
+				lastName,
+				emailAddress,
+				dateOfBirth,
+				gender,
+			};
 
-			toast.success('Contact is added successfully');
-			navigate('/contacts');
+			// form submission
+			// formData.append('firstName', firstName);
+			// formData.append('lastName', lastName);
+			// formData.append('dateOfBirth', dateOfBirth);
+			// formData.append('emailAddress', emailAddress);
+			// formData.append('gender', gender);
+			// console.log(formData);
+			formData.append('data', JSON.stringify(data));
+			addContact(formData);
+
 			// reset after submitting
 			// setContact(defaultContact)
 		}
@@ -201,12 +229,13 @@ const ContactForm = ({ addContact, updateContact, contact: contactToEdit }) => {
 
 				<ImagesInput
 					label='Picture'
-					type='url'
+					type='file'
 					name='picture'
 					placeholder='Enter your Picture'
 					onChange={handelChange}
 					value={picture}
 					error={errorPicture}
+					accept='image/*'
 				/>
 
 				<DateInput

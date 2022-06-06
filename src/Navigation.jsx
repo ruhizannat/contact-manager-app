@@ -7,7 +7,7 @@ const Navigation = () => {
 	const { user, removeAuthInfo } = useContext(AuthContext);
 	return (
 		<>
-			<Navbar bg='light' expand='lg' className='mb-4'>
+			<Navbar bg='light' expand='lg' className='mb-2'>
 				<Container className='d-flex flex-row'>
 					<Navbar.Brand as={Link} to='/' className='contact-brand'>
 						Contact <span className='text-warning'>Manager</span>

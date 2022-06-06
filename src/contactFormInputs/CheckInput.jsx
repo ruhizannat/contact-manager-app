@@ -1,8 +1,6 @@
 import { Form, Col } from 'react-bootstrap';
 
 const CheckInput = ({ name, type, onChange, value, label, valueToCheck }) => {
-	console.log(value, valueToCheck);
-
 	return (
 		<>
 			<Col sm='auto'>

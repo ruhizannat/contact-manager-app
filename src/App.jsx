@@ -27,9 +27,6 @@ import { AuthContext } from './context/AuthContext';
 import AuthRequired from './routes/AuthRequired';
 import PublicRoute from './routes/PublicRoute';
 
-
-
-
 const App = () => {
 	return (
 		<>
@@ -41,60 +38,58 @@ const App = () => {
 				rtl={false}
 			/>
 			<Row>
-				<BrowserRouter>
-					<Navigation />
-					<Col sm={{ span: 10, offset: 2 }}>
-						<Container>
-							<Routes>
-								<Route path='/' index element={<Home />} />
-								<Route path='/about' element={<About />} />
-								<Route
-									path='/add'
-									element={
-										<AuthRequired>
-											<AddContact />
-										</AuthRequired>
-									}
-								/>
-								<Route
-									path='/edit/:id'
-									element={
-										<AuthRequired>
-											<EditContact />
-										</AuthRequired>
-									}
-								/>
-								<Route path='/details/:id' element={<ContactDetails />} />
-								<Route
-									path='/contacts'
-									element={
-										<AuthRequired>
-											<Contacts />
-										</AuthRequired>
-									}
-								/>
-								<Route
-									path='/register'
-									element={
-										<PublicRoute>
-											<Register />
-										</PublicRoute>
-									}
-								/>
-								<Route
-									path='/login'
-									element={
-										<PublicRoute>
-											<Login />
-										</PublicRoute>
-									}
-								/>
+				<Navigation />
+				<Col sm={{ span: 10, offset: 2 }}>
+					<Container>
+						<Routes>
+							<Route path='/' index element={<Home />} />
+							<Route path='/about' element={<About />} />
+							<Route
+								path='/add'
+								element={
+									<AuthRequired>
+										<AddContact />
+									</AuthRequired>
+								}
+							/>
+							<Route
+								path='/edit/:id'
+								element={
+									<AuthRequired>
+										<EditContact />
+									</AuthRequired>
+								}
+							/>
+							<Route path='/details/:id' element={<ContactDetails />} />
+							<Route
+								path='/contacts'
+								element={
+									<AuthRequired>
+										<Contacts />
+									</AuthRequired>
+								}
+							/>
+							<Route
+								path='/register'
+								element={
+									<PublicRoute>
+										<Register />
+									</PublicRoute>
+								}
+							/>
+							<Route
+								path='/login'
+								element={
+									<PublicRoute>
+										<Login />
+									</PublicRoute>
+								}
+							/>
 
-								<Route path='*' element={<NotFound />} />
-							</Routes>
-						</Container>
-					</Col>
-				</BrowserRouter>
+							<Route path='*' element={<NotFound />} />
+						</Routes>
+					</Container>
+				</Col>
 			</Row>
 		</>
 	);

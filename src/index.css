@@ -75,3 +75,17 @@ h2 {
 	outline: none;
 	box-shadow: 0px 0px 14px 0.3px #0e81ce96;
 }
+
+.cardContact {
+	border: 0.25rem solid #c59c5f59 !important;
+	width: 22rem !important;
+   
+	text-align: center;
+}
+
+.cardContact:hover {
+	box-shadow: 5px 10px 20px 1px rgba(0, 0, 0, 0.253) !important;
+}
+.cardImg {
+	height: 300px;
+}
