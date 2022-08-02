@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import useToken from '../hooks/useToken';
@@ -8,6 +9,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
 	const [userLoaded, setUserLoaded] = useState(false);
+	
 	const { token, tokenLoaded } = useToken();
 
 	async function loadUser() {

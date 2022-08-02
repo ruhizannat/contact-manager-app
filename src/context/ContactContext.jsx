@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import { createContext, useEffect, useReducer, useState } from 'react';
+import { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
@@ -13,6 +13,8 @@ import {
 import { contactReducer } from '../contactReducer';
 import useToken from '../hooks/useToken';
 import { formatContacts } from '../utils/fomatContacts';
+import formatContact from '../utils/formatContact';
+import { AuthContext } from './AuthContext';
 
 export const ContactContext = createContext();
 
@@ -21,7 +23,7 @@ const initialState = [];
 export const ContactProvider = ({ children }) => {
 	const [contacts, dispatch] = useReducer(contactReducer, initialState);
 	const navigate = useNavigate();
-
+    // contact with author(don't work)
 	const { token, tokenLoaded } = useToken();
 
 	const loadContacts = async () => {
@@ -84,17 +86,19 @@ export const ContactProvider = ({ children }) => {
 			console.log(formData);
 
 			console.log(res.data);
+			const addedContact = formatContact(res.data.data);
 
 			const contact = {
-				firstName: 'zannat',
-				lastName: 'era',
-				emailAddress: 'era@gmail.com',
+				firstName: 'ruhi',
+				lastName: 'zannat',
+				emailAddress: 'ruhizannat71@gmail.com',
 				dateOfBirth: new Date(),
 				gender: 'female',
-				picture: '',
+				picture:
+					'/uploads/medium_pexels_karolina_grabowska_7680097_7da576b632.jpg',
 			};
 
-			dispatch({ type: ADD_CONTACT, payload: contact });
+			dispatch({ type: ADD_CONTACT, payload: addedContact });
 			toast.success('Contact is added successfully');
 			navigate('/contacts');
 		} catch (err) {
@@ -119,6 +123,7 @@ export const ContactProvider = ({ children }) => {
 		addContact,
 		deleteContact,
 		updateContact,
+		
 		// ContactDetails,
 	};
 	return (

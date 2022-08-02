@@ -151,6 +151,7 @@ const ContactForm = ({ addContact, updateContact, contact: contactToEdit }) => {
 				dateOfBirth,
 				gender,
 			};
+			console.log(data);
 
 			// form submission
 			// formData.append('firstName', firstName);
@@ -161,6 +162,7 @@ const ContactForm = ({ addContact, updateContact, contact: contactToEdit }) => {
 			// console.log(formData);
 			formData.append('data', JSON.stringify(data));
 			addContact(formData);
+			// console.log(formData)
 
 			// reset after submitting
 			// setContact(defaultContact)
